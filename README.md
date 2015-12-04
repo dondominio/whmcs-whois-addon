@@ -13,6 +13,10 @@ Once finished, access your WHMCS Administration Panel, and navigate to `Setup > 
 
 At this point, if you see a warning about permissions, you will need to perform additional actions. Instead, if you see the Whois Servers list, you're ready to go.
 
+## Restrict access
+
+We recommend restricting access to the whoisproxy.php file from outside your server to avoid overuse of this service. You can do this using a variety of methods, such as using the .htaccess file or a firewall installed on your server.
+
 ## Fixing permissions
 
 If you see a warning about permissions once you have configured the addon, you will need to ensure that the file `/includes/whoisservers.php` is writable by your web server. Depending on your operating system and version the exact procedure may vary, but it's usually enough to change the owner or group of the file to the one used by your web server process.
