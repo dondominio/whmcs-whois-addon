@@ -56,7 +56,8 @@ function ddwhois_output( $vars )
 		ddwhois_save_settings(
 			array(
 				'apiuser' => $_POST['username'],
-				'apipasswd' => $_POST['password']
+				'apipasswd' => $_POST['password'],
+				'domain' => $_POST['domain']
 			)
 		);
 	case 'settings':
@@ -69,31 +70,31 @@ function ddwhois_output( $vars )
 	default:	
 		if( array_key_exists( 'message', $_GET )){
 			if( $_GET['message'] == 'new-tld-error-permissions' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='errorbox'><span class='title'>" . $lang['new-tld-error-permissions'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'new-tld-ok' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='successbox'><span class='title'>" . $lang['new-tld-ok'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'new-tld-error' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='errorbox'><span class='title'>" . $lang['new-tld-error'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'import-ok' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='successbox'><span class='title'>" . $lang['import-ok'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'import-error' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='errorbox'><span class='title'>" . $lang['import-error'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'settings-error' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='errorbox'><span class='title'>" . $lang['settings-error'] . "</span></div>";
 			}
 			
 			if( $_GET['message'] == 'settings-ok' ){
-				echo "<div class='errorbox'><span class='title'>" . $lang['error_permissions'] . "</span></div>";
+				echo "<div class='successbox'><span class='title'>" . $lang['settings-ok'] . "</span></div>";
 			}			
 		}
 		
@@ -381,7 +382,7 @@ function ddwhois_setup( array $vars, $new_tld )
 		
 		//TLD found; modify its settings
 		if( $tld == $new_tld ){
-			$whois_database[$whois_id] = $tld . '|http://127.0.0.1' . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
+			$whois_database[$whois_id] = $tld . '|http://' . ddwhois_get( 'domain' ) . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
 			
 			$found = true;
 		}
@@ -389,7 +390,7 @@ function ddwhois_setup( array $vars, $new_tld )
 	
 	//TLD not found in current file; add it to the bottom
 	if( !$found ){
-		$whois_database[] = $new_tld . '|http://127.0.0.1' . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
+		$whois_database[] = $new_tld . '|http://' . ddwhois_get( 'domain' ) . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
 	}
 	
 	//Save the resulting file
@@ -432,6 +433,7 @@ function ddwhois_save_settings( array $settings )
 {
 	$username = ddwhois_set( 'apiUsername', trim($settings['apiuser']) );
 	$password = ddwhois_set( 'apiPassword', trim($settings['apipasswd']) );
+	$domain = ddwhois_set( 'domain', trim( $settings['domain'] ));
 	
 	//¿Error saving? Redirect w/ error
 	if( !$username || !$password ){
@@ -474,6 +476,16 @@ function ddwhois_settings( array $vars )
 							
 							<td class='fieldarea'>
 								<input type='password' name='password' value='" . ddwhois_get( 'apiPassword' ) . "' size='35'>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class='fieldlabel' width='200'>
+								" . $lang['config_domain'] . "
+							</td>
+							
+							<td class='fieldarea'>
+								<input type='text' name='domain' value='" . ddwhois_get( 'domain' ) . "' size='35'>
 							</td>
 						</tr>
 					</tbody>
