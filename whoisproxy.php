@@ -27,15 +27,17 @@ try{
 }
 
 try{
-	$whois = $dondominio->domain_whois( $_REQUEST['domain'] );
-}catch( \DonDominioAPI_Domain_WhoisError $e ){
-	die( "DDAVAILABLE" );
-}catch( \DonDominioAPI_Domain_NotFound $e ){
-	die( "DDAVAILABLE" );
+	$whois = $dondominio->domain_check( $_REQUEST['domain'] );
 }catch( \DonDominioAPI_Error $e ){
 	die( $e->getMessage());
 }
 
-die( $whois->get( 'whoisData' ));
+$domain = $whois->get( "domains" )[0];
+
+if( $domain['available'] ){
+	die( "DDAVAILABLE" );
+}else{
+	die( "Not Available" );
+}
 
 ?>
