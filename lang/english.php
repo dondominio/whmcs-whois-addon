@@ -31,7 +31,7 @@ $_ADDONLANG = array(
 	 */	
 	'servers_export' => 'Export server list',
 	'servers_import' => 'Import server list',
-	'import_btn' => 'Import file'
+	'import_btn' => 'Import file',
 	
 	/*
 	 * MESSAGES
