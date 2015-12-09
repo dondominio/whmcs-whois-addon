@@ -20,6 +20,17 @@ $options = array(
 	)
 );
 
+//Checking allowed IPs
+$ip = $config['ip'];
+
+$ip_array = explode( ';', $ip );
+
+$current_ip = $_SERVER['REMOTE_ADDR'];
+
+if( !in_array( $current_ip, $ip_array )){
+	die( "Error: $current_ip not allowed to access this script." );
+}
+
 try{
 	$dondominio = new DonDominioAPI( $options );
 }catch( \DonDominioAPI_Error $e ){

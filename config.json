@@ -1,5 +1,6 @@
 {
 	"apiUsername": "",
 	"apiPassword": "",
-	"domain": "http://127.0.0.1"
+	"domain": "http://127.0.0.1",
+	"ip": "127.0.0.1"
 }

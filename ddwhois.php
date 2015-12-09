@@ -57,7 +57,8 @@ function ddwhois_output( $vars )
 			array(
 				'apiuser' => $_POST['username'],
 				'apipasswd' => $_POST['password'],
-				'domain' => $_POST['domain']
+				'domain' => $_POST['domain'],
+				'ip' => $_POST['ip']
 			)
 		);
 	case 'settings':
@@ -223,7 +224,7 @@ function ddwhois_output( $vars )
 							<td>
 			"; 
 			
-			if( is_writable( WHOIS_SERVERS_FILE ) && $match != 'HTTPREQUEST-DDAVAILABLE' ){
+			if( is_writable( WHOIS_SERVERS_FILE )){
 				echo "
 								<a href='addonmodules.php?module=ddwhois&action=switch&tld=" . $tld . "' class='btn btn-default btn-sm'>
 									" . $lang['config_switch'] . "
@@ -345,7 +346,7 @@ function ddwhois_import_process( array $vars )
 }
 
 /**
- * Setup a TLD to use DD API for Whois.
+ * Setup a TLD to use DD API for Whois
  * @param string $tld The TLD to configure
  * @return bool
  */
@@ -435,9 +436,13 @@ function ddwhois_backup()
  */
 function ddwhois_save_settings( array $settings )
 {
+	
+	$settings['domain'] = str_replace( array( 'http://', 'https://' ), array( '', '' ), $settings['domain'] );
+	
 	$username = ddwhois_set( 'apiUsername', trim($settings['apiuser']) );
 	$password = ddwhois_set( 'apiPassword', trim($settings['apipasswd']) );
 	$domain = ddwhois_set( 'domain', trim( $settings['domain'] ));
+	$ip = ddwhois_set( 'ip', trim( $settings['ip'] ));
 	
 	//¿Error saving? Redirect w/ error
 	if( !$username || !$password ){
@@ -493,7 +498,17 @@ function ddwhois_settings( array $vars )
 							</td>
 							
 							<td class='fieldarea'>
-								<input type='text' name='domain' value='" . ddwhois_get( 'domain' ) . "' size='35'>
+								<input type='text' name='domain' value='" . ddwhois_get( 'domain' ) . "' size='35'><br />" . $lang['config_domain_info'] . "
+							</td>
+						</tr>
+						
+						<tr>
+							<td class='fieldlabel' width='200'>
+								" . $lang['config_ip'] . "
+							</td>
+							
+							<td class='fieldarea'>
+								<input type='text' name='ip' value='" . ddwhois_get( 'ip' ) . "' size='35'><br />" . $lang['config_ip_info'] . "
 							</td>
 						</tr>
 					</tbody>
