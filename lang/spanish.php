@@ -1,29 +1,42 @@
 <?php
 
 $_ADDONLANG = array(
+	/*
+	 * CONFIG
+	 */
 	'config_settings' => 'Cambiar configuración',
 	'config_username' => 'Usuario de API',
 	'config_password' => 'Contraseña de API',
+	'config_domain' => 'Dominio de acceso (donde se aloja tu frontend de WHMCS)',
 	'config_save' => 'Guardar cambios',
 	'config_cancel' => 'Cancelar los cambios',
 	'config_save_success' => 'La configuración se ha guardado correctamente',
 	'config_save_error' => 'La configuración no se ha podido guardar correctamente. ¿Quizás es un problema de permisos?',
 	'config_switch' => 'Cambiar a DonDominio',
 	
+	/*
+	 * NEW TLD
+	 */
 	'new_tld' => 'Añadir un nuevo TLD',
 	'new_tld_tld' => 'TLD',
 	'new_tld_add' => 'Añadir TLD',
 	
-	'error_servers_no_writable' => 'El fichero de servidores Whois no es editable desde el servidor. Hazlo editable o modifícalo directamente.',
-	'error_permissions' => 'No se ha podido modificar el fichero de servidores Whois. Probablemente no es editable por el servidor.',
-	
+	/*
+	 * INFO
+	 */
 	'info_path_whois' => 'Tu fichero de servidores Whois se encuentra aquí',
 	'info_path_moreinfo' => 'Documentación',
 	
+	/*
+	 * IMPORT/EXPORT
+	 */	
 	'servers_export' => 'Exportar lista de servidores',
 	'servers_import' => 'Importar lista de servidores',
 	'import_btn' => 'Importar archivo',
 	
+	/*
+	 * MESSAGES
+	 */
 	'error_servers_no_writable' => 'El fichero de servidores Whois no se puede escribir. Cambia los permisos o edítalo directamente.',
 	'new-tld-error-permissions' => 'No se ha podido acceder al archivo. Cambia los permisos o edítalo directamente.',
 	'new-tld-ok' => 'TLD actualizado correctamente',

@@ -409,7 +409,9 @@ function ddwhois_setup( array $vars, $new_tld )
 }
 
 /**
- * Make a backup of the original whois servers file.
+ * Make a backup of the original whois servers file
+ * Creates a backup on the local directory of the original whois servers file for restoring it
+ * later, if needed.
  * @return bool
  */
 function ddwhois_backup()
@@ -425,8 +427,10 @@ function ddwhois_backup()
 }
 
 /**
- * Save the settings & redirect.
- * @param array $vars Parameters from WHMCS
+ * Save the settings & redirect
+ * This function is called whenever the settings screen submits the form via POST. Settings are
+ * pulled from the POST array and passed in the $settings array. After saving the settings, sets
+ * a redirect header and exits script execution.
  * @param array $settings Settings to save
  */
 function ddwhois_save_settings( array $settings )
@@ -447,6 +451,10 @@ function ddwhois_save_settings( array $settings )
 	exit();
 }
 
+/**
+ * Settings screen.
+ * @param array $vars Parameters from WHMCS
+ */
 function ddwhois_settings( array $vars )
 {
 	$lang = $vars['_lang'];

@@ -7,6 +7,7 @@ $_ADDONLANG = array(
 	'config_settings' => 'Change settings',
 	'config_username' => 'API Username',
 	'config_password' => 'API Password',
+	'config_domain' => 'Access domain (where your WHMCS frontend is hosted)',
 	'config_save' => 'Save settings',
 	'config_cancel' => 'Cancel',
 	'config_save_success' => 'Settings successfully saved',
