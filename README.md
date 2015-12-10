@@ -9,6 +9,8 @@ The addon is composed of two scripts: `whoisproxy.php` is the script that perfor
 ## Installation
 Download the files in ZIP form from Github and unzip them. On your WHMCS installation, navigate to `/modules/addons/` and create a folder named `ddwhois`. Copy inside this folder the files from the previous ZIP file. Ensure that this folder can be writen by your web server.
 
+Ensure that your web server is able to write the `config.json` file in the addon folder, otherwise you won't be able to save the configuration from the addon. You may also edit this file directly. If you do, skip the next step.
+
 Once finished, access your WHMCS Administration Panel, and navigate to `Setup > Addon Modules`. Look in the list for `DonDominio Whois Addon` and click `Activate`. Once activated, go to `Addons > DonDominio Whois Addon`, click on `Settings` and enter your API Username & Password. Now the plugin is ready to work.
 
 At this point, if you see a warning about permissions, you will need to perform additional actions. Instead, if you see the Whois Servers list, you're ready to go.
