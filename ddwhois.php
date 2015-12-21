@@ -354,7 +354,9 @@ function ddwhois_setup( array $vars, $new_tld )
 {
 	$lang = $vars['_lang'];
 	
-	if( empty( trim( $new_tld ))){
+	$new_tld = trim( $new_tld );
+	
+	if( empty( $new_tld )){
 		header( 'Location: addonmodules.php?module=ddwhois&message=new-tld-error' );
 		exit();
 	}
