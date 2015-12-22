@@ -383,9 +383,15 @@ function ddwhois_setup( array $vars, $new_tld )
 		$server = $components[1];
 		$match = $components[2];
 		
+		$domain = ddwhois_get( 'domain' );
+		
+		if( substr( $domain, 0, 4 ) != 'http' ){
+			$domain = 'http://' . $domain;
+		}
+		
 		//TLD found; modify its settings
 		if( $tld == $new_tld ){
-			$whois_database[$whois_id] = $tld . '|http://' . ddwhois_get( 'domain' ) . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
+			$whois_database[$whois_id] = $tld . '|' . $domain . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
 			
 			$found = true;
 		}
@@ -393,7 +399,7 @@ function ddwhois_setup( array $vars, $new_tld )
 	
 	//TLD not found in current file; add it to the bottom
 	if( !$found ){
-		$whois_database[] = $new_tld . '|http://' . ddwhois_get( 'domain' ) . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
+		$whois_database[] = $new_tld . '|' . $domain . $route . '/modules/addons/ddwhois/whoisproxy.php?domain=|HTTPREQUEST-DDAVAILABLE' . "\r\n";
 	}
 	
 	//Save the resulting file
@@ -438,8 +444,6 @@ function ddwhois_backup()
  */
 function ddwhois_save_settings( array $settings )
 {
-	
-	$settings['domain'] = str_replace( array( 'http://', 'https://' ), array( '', '' ), $settings['domain'] );
 	
 	$username = ddwhois_set( 'apiUsername', trim($settings['apiuser']) );
 	$password = ddwhois_set( 'apiPassword', trim($settings['apipasswd']) );
