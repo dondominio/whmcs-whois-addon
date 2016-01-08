@@ -17,13 +17,36 @@ function ddwhois_config()
 	$config = array(
 		'name' => 'DonDominio Whois Addon',
 		'description' => 'Adds the capability to perform Whois queries using the DonDominio/MrDomain API through WHMCS',
-		'version' => '1.0',
+		'version' => ddwhois_getVersion(),
 		'author' => 'DonDominio',
 		'language' => 'English',
 		'fields' => array()
 	);
 	
 	return $config;
+}
+
+function ddwhois_getVersion()
+{
+	$versionFile = __DIR__ . '/version.json';
+	
+	if( !file_exists( $versionFile )){
+		return 'unknown';
+	}
+	
+	$json = @file_get_contents( $versionFile );
+	
+	if( empty( $json )){
+		return 'unknown';
+	}
+	
+	$versionInfo = json_decode( $json, true );
+	
+	if( !is_array( $versionInfo ) || !array_key_exists( 'version', $versionInfo )){
+		return 'unknown';
+	}
+	
+	return $versionInfo['version'];
 }
 
 /**
